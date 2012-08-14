@@ -1,62 +1,13 @@
-NAME
 
-Catalyst::Authentication::Credential::Crowd - Authenticate a user using Crowd REST Service
 
-SYNOPSIS
+This archive contains the distribution Catalyst-Authentication-Credential-Crowd,
+version 0.03:
 
-    use Catalyst qw/
-        Authentication
+  Authenticate a user using Crowd REST Service
 
-    /;
+This software is copyright (c) 2012 by Keerati Thiwanruk.
 
-    __PACKAGE__->config( authentication => {
-        default_realm => 'crowd',
-        realms => {
-            crowd => {
-                credential => {
-                    class => 'Crowd',
-                    authen_url => 'http://yourcrowdservice.url/authentication,
-                    app => {
-                        app_name => 'your_crowd_app_name',
-                        password => 'password_for_app_name',
-                    }
-                },
-                ...
-            },
-        }
-    });
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
-    # in controller
-
-    sub login : Local {
-        my ( $self, $c ) = @_;
-
-        $c->authenticate( {
-            username => $c->req->param('username'),
-            password => $c->req->param('password')
-        }
-
-        # ... do something else ...
-    }
-
-INSTALLATION
-
-To install this module type the following:
-
-   perl Makefile.PL
-   make
-   make test
-   make install
-
-=head1 AUTHOR
-
-Keerati Thiwanruk, E<lt>keerati.th@gmail.com<gt>
-
-COPYRIGHT AND LICENCE
-
-Copyright (C) 2012 by Keerati Thiwanruk
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself, either Perl version 5.14.2 or,
-at your option, any later version of Perl 5 you may have available.
 

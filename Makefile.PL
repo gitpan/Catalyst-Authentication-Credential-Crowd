@@ -1,17 +1,65 @@
-use inc::Module::Install 0.65;
 
-name 'Catalyst-Authentication-Credential-Crowd';
-all_from 'lib/Catalyst/Authentication/Credential/Crowd.pm';
+use strict;
+use warnings;
 
-requires 'Moose';
-requires 'Catalyst::Runtime';
-requires 'Catalyst::Plugin::Authentication';
-requires 'HTTP::Request';
-requires 'LWP::UserAgent';
-requires 'JSON';
 
-test_requires 'Test::Fake::HTTPD';
-test_requires 'Test::More';
 
-auto_install;
-WriteAll;
+use ExtUtils::MakeMaker 6.30;
+
+
+
+my %WriteMakefileArgs = (
+  "ABSTRACT" => "Authenticate a user using Crowd REST Service",
+  "AUTHOR" => "Keerati Thiwanruk <keerati.th\@gmail.com>",
+  "BUILD_REQUIRES" => {
+    "Catalyst" => 0,
+    "Catalyst::Controller" => 0,
+    "FindBin" => 0,
+    "Test::Fake::HTTPD" => 0,
+    "Test::More" => 0,
+    "Test::TCP" => 0,
+    "Test::WWW::Mechanize::Catalyst" => 0,
+    "namespace::autoclean" => 0
+  },
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
+  },
+  "DISTNAME" => "Catalyst-Authentication-Credential-Crowd",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "Catalyst::Authentication::Credential::Crowd",
+  "PREREQ_PM" => {
+    "HTTP::Request" => 0,
+    "JSON" => 0,
+    "LWP::UserAgent" => 0,
+    "Moose" => 0,
+    "strict" => 0,
+    "warnings" => 0
+  },
+  "VERSION" => "0.03",
+  "test" => {
+    "TESTS" => "t/*.t"
+  }
+);
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
+
