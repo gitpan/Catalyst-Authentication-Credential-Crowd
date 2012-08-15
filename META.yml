@@ -5,6 +5,7 @@ author:
 build_requires:
   Catalyst: 0
   Catalyst::Controller: 0
+  Catalyst::Plugin::Authentication: 0
   FindBin: 0
   Test::Fake::HTTPD: 0
   Test::More: 0
@@ -27,4 +28,4 @@ requires:
   Moose: 0
   strict: 0
   warnings: 0
-version: 0.04
+version: 0.05
